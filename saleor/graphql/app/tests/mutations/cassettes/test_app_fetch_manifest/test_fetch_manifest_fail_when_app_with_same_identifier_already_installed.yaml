@@ -1,0 +1,60 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, br
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: http://localhost:3000/api/manifest
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAE+1XbW/bNhD+KwQ/bYBm92UDBmEboDneGixNisZpB6xBcKYuNmeKVMmjG8HQfx9I
+        SbZlO2mzZMU+BP5gvhwfHu8eP3decZgaTzzlWVkyYbRGQY59kjRn2RIIbhgZllcaCilAqYoJUMIr
+        IGQEN+h4wqEsL6ziKZ8TlelwqIwANTeO0pfPnj0LBp7mxvKUn4NCY9nIFAVagTzhUws65+mKKzMz
+        4TvHa/CKNmgBaJAbsUA7kJrQalAReBiODEo943Wd8BwI3li5BFFtnHHpcOjinQNphgpnoIZlYzTk
+        CccbQu2k0Y6nf10mfG4KLGGGfYCZpLmfDoQpWqwhlGV4t8x5ylt4KMsBxHjxhGsoMES0m5doC+m6
+        i/ir7PToZHw1yf4cn/OEv85Os9/HV2dvj8Zvz/llwi1+9NJi3kTrHdpwkqf8l59fDp7/yH76nifc
+        +bI0lr7E02EunfDt9Qkns0A9ATtD6mXt9jhDKYcWZ9IRWp7w5dqh54MfBi94wj/hdG7MIjxuxT96
+        tFUIjJ86YWVJ0mg26kgzCZxhK4ZL1MRWbDAY9PfGcaOury3MijA8tG00G7cAV1dUlRgiHrDeN568
+        RoJAiLDEDl1PcPMrOGwcmLSTmlkUspQNcOQJ4RpqxRZYsSUoHyzrbRd3b91yTzrnMc+ItVHbHOpu
+        NToMYarwbPo3ivZqgW4ckoD5e0nzCdww4a1FLSom5qA1KrZiTvkZqxnkuUXnmsdk7aRmbi7LUurZ
+        m4DGVgwK40NomZIaXe/pJ1KHRznjrdi40Q9tjOMcxcL4+LCcNXwfa5JUjUyOKSuQ4Fqiyr9ZYJWy
+        D3zX5AP/tj028o5MgfbOg9tG4ah3aBvHL8IopKH17Mzmcev/4tYWO7qMGL0erpgji0jt/Hl/+oIJ
+        SRUTIV22yiwCK40jUOG+bpmtmAjTeo9RMZm7rIqLqzbD7eT2/LYGMmeiXXljTe4FvQMrQVPKls2g
+        MSqbzeZ3NVIQXyhzFqHr9rOdqA2+CdOHg9fso4eYTua1pD3KkyFQu6ubyMW0Gd18R3QsQKoHcKLe
+        lIEuqH0RCkp8XxHudHbYZeW7dTH+rivG0mWC5BJ5StZjwl2lRRSjWHpGr8ajP84uJlej7GR0cZJN
+        ujJ0WSdP0v0k3U/S/STdT9K9lu744kfU7Riye4t2/GdwD8VuvdYClcL8fHurp959u3hfz3gryp8z
+        va+q9/HYqiHTIbf6Hn1Vmb/DkUOydZzfyrDjPGjNRv1l3haAfa61tz0KzTZYuwSDwww7HY1PTsZH
+        n+WW0dfSFp/nVmf3Bdy63fTfcavDO8Stg+7X92PXo3DroCN9bmlfTNHGOjWOwrZXsR5Q/YRFIMyZ
+        IyDvDhA0nAlOzryFNskHO5xg16qaNPqcLBDOqhjTrpfJDrc6U6nU7btR/EO97DoojdQrDnCzPd3v
+        nGbWRNS1yQ5Ar6XaFLj6Ya3IpBeOI6Dbj++bbmCOjPCBLXfev20Uqtd/WRm/fmO0SclOA9L2FucL
+        3w3bHuR43XecBp1YNxf9FqTuNRt7pOg1HXdzbo9h+6Le/cwfQ9S3sL5M1M9Ofzt++zqK+mX9Dw57
+        CFLvFQAA
+    headers:
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Jul 2024 13:33:09 GMT
+      ETag:
+      - '"5jejljpkvl4bz"'
+      Keep-Alive:
+      - timeout=5
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

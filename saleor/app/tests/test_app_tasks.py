@@ -114,7 +114,9 @@ def test_install_app_task_undefined_error(monkeypatch, app_installation):
 # Without `transaction=True` test will pass due to be in one atomic bloc.
 @pytest.mark.django_db(transaction=True)
 def test_remove_app_task(
-    event_attempt_removed_app, removed_app_with_extensions, removed_app
+    event_attempt_removed_app,
+    removed_app_with_extensions,
+    removed_app,
 ):
     # given
     removed_app.tokens.create(name="token1")

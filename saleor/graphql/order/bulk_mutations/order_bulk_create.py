@@ -289,22 +289,37 @@ class ModelIdentifier:
 
 @dataclass
 class ModelIdentifiers:
-    user_ids: ModelIdentifier = ModelIdentifier(model="User")
-    user_emails: ModelIdentifier = ModelIdentifier(model="User")
-    user_external_references: ModelIdentifier = ModelIdentifier(model="User")
-    channel_slugs: ModelIdentifier = ModelIdentifier(model="Channel")
-    voucher_codes: ModelIdentifier = ModelIdentifier(model="VoucherCode")
-    warehouse_ids: ModelIdentifier = ModelIdentifier(model="Warehouse")
-    shipping_method_ids: ModelIdentifier = ModelIdentifier(model="ShippingMethod")
-    tax_class_ids: ModelIdentifier = ModelIdentifier(model="TaxClass")
-    order_external_references: ModelIdentifier = ModelIdentifier(model="Order")
-    variant_ids: ModelIdentifier = ModelIdentifier(model="ProductVariant")
-    variant_skus: ModelIdentifier = ModelIdentifier(model="ProductVariant")
-    variant_external_references: ModelIdentifier = ModelIdentifier(
-        model="ProductVariant"
-    )
-    gift_card_codes: ModelIdentifier = ModelIdentifier(model="GiftCard")
-    app_ids: ModelIdentifier = ModelIdentifier(model="App")
+    # user_ids: ModelIdentifier = ModelIdentifier(model="User")
+    # user_emails: ModelIdentifier = ModelIdentifier(model="User")
+    # user_external_references: ModelIdentifier = ModelIdentifier(model="User")
+    # channel_slugs: ModelIdentifier = ModelIdentifier(model="Channel")
+    # voucher_codes: ModelIdentifier = ModelIdentifier(model="VoucherCode")
+    # warehouse_ids: ModelIdentifier = ModelIdentifier(model="Warehouse")
+    # shipping_method_ids: ModelIdentifier = ModelIdentifier(model="ShippingMethod")
+    # tax_class_ids: ModelIdentifier = ModelIdentifier(model="TaxClass")
+    # order_external_references: ModelIdentifier = ModelIdentifier(model="Order")
+    # variant_ids: ModelIdentifier = ModelIdentifier(model="ProductVariant")
+    # variant_skus: ModelIdentifier = ModelIdentifier(model="ProductVariant")
+    # variant_external_references: ModelIdentifier = ModelIdentifier(
+    #     model="ProductVariant"
+    # )
+    # gift_card_codes: ModelIdentifier = ModelIdentifier(model="GiftCard")
+    # app_ids: ModelIdentifier = ModelIdentifier(model="App")
+
+    user_ids: list[User] = dataclass_field(default_factory=list)
+    user_emails: list[User] = dataclass_field(default_factory=list)
+    user_external_references: list[User] = dataclass_field(default_factory=list)
+    channel_slugs: list[Channel] = dataclass_field(default_factory=list)
+    voucher_codes: list[VoucherCode] = dataclass_field(default_factory=list)
+    warehouse_ids: list[Warehouse] = dataclass_field(default_factory=list)
+    shipping_method_ids: list[ShippingMethod] = dataclass_field(default_factory=list)
+    tax_class_ids: list[TaxClass] = dataclass_field(default_factory=list)
+    order_external_references: list[Order] = dataclass_field(default_factory=list)
+    variant_ids: list[ProductVariant] = dataclass_field(default_factory=list)
+    variant_skus: list[ProductVariant] = dataclass_field(default_factory=list)
+    variant_external_references: list[ProductVariant] = dataclass_field(default_factory=list)
+    gift_card_codes: list[GiftCard] = dataclass_field(default_factory=list)
+    app_ids: list[App] = dataclass_field(default_factory=list)
 
 
 class TaxedMoneyInput(BaseInputObjectType):

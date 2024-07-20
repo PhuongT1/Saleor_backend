@@ -105,6 +105,18 @@ class ConnectionField(PermissionsField):
                 )
             ),
         )
+        kwargs.setdefault(
+            "pageSize",
+            graphene.Int(
+                description="Specify the number of elements to retrieve from the list."
+            ),
+        )
+        kwargs.setdefault(
+            "pageIndex",
+            graphene.Int(
+                description="Specify the number of elements to skip in the list."
+            ),
+        )
         super().__init__(type_, *args, **kwargs)
 
     @property

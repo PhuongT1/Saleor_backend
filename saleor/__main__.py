@@ -1,7 +1,7 @@
-import uvicorn
+import gunicorn
 
-config = uvicorn.Config(
-    "saleor.asgi:application", port=10000, reload=True, lifespan="off"
+config = gunicorn.Config(
+    "saleor.asgi:application", port=8000, reload=True, lifespan="off"
 )
-server = uvicorn.Server(config)
+server = gunicorn.Server(config)
 server.run()

@@ -262,6 +262,30 @@ def connection_from_queryset_slice(
     after = args.get("after")
     first = args.get("first")
     last = args.get("last")
+    page_size = args.get("pageSize")
+    page_index = args.get("pageIndex", 1) 
+
+    # Handle pageSize and pageIndex pagination
+    if page_size is not None and page_index is not None:
+        total_count = qs.count()
+        offset = page_size * (page_index - 1) 
+        qs = qs[offset:offset + page_size]
+        edges = [
+            edge_type(
+                node=record,
+                cursor=None  
+            )
+            for record in qs
+        ]
+        page_info = pageinfo_type(
+            has_previous_page=page_index > 1, 
+            has_next_page=(offset + page_size) < total_count, 
+            start_cursor=None,
+            end_cursor=None,
+        )
+        return connection_type(edges=edges, page_info=page_info, total_count=total_count)
+
+    # Existing cursor-based pagination logic
     _validate_connection_args(args)
 
     requested_count = first or last
@@ -376,12 +400,31 @@ def _validate_slice_args(
 
     first = args.get("first")
     last = args.get("last")
+    page_size = args.get("pageSize")
+    page_index = args.get("pageIndex")
 
-    if enforce_first_or_last and not (first or last):
-        raise GraphQLError(
-            f"You must provide a `first` or `last` value to properly paginate "
-            f"the `{info.field_name}` connection."
-        )
+    if page_size is not None or page_index is not None:
+        # Check for pageSize and pageIndex together
+        if page_size is None or page_index is None:
+            raise GraphQLError("Both 'page_size' and 'page_index' must be provided together.")
+        if first is not None or last is not None:
+            raise GraphQLError("Cannot use 'first' or 'last' with 'page_size' and 'page_index'.")
+        if page_size < 0 or page_index < 0:
+            raise GraphQLError("'page_size' and 'page_index' must be non-negative integers.")
+    else:
+        # Cursor-based pagination checks
+        if first is not None and first < 0:
+            raise GraphQLError("'first' must be a non-negative integer.")
+        if last is not None and last < 0:
+            raise GraphQLError("'last' must be a non-negative integer.")
+        if first is not None and last is not None:
+            raise GraphQLError("Cannot use 'first' and 'last' together.")
+
+    # if enforce_first_or_last and not (first or last):
+    #     raise GraphQLError(
+    #         f"You must provide a `first` or `last` value to properly paginate "
+    #         f"the `{info.field_name}` connection."
+    #     )
 
     if max_limit is None:
         max_limit = settings.GRAPHQL_PAGINATION_LIMIT

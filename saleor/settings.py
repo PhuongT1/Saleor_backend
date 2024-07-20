@@ -102,11 +102,11 @@ DATABASE_CONNECTION_REPLICA_NAME = "replica"
 
 DATABASES = {
     DATABASE_CONNECTION_DEFAULT_NAME: dj_database_url.config(
-        default="postgres://saleor:saleor@localhost:5432/saleor",
+        default="postgresql://ecommercedbuser:uLW0gOVLPkRTPHtq8py1EEzWT0pId1Ll@dpg-cqdl200gph6c73a84dg0-a.singapore-postgres.render.com/ecommercedb_od5x",
         conn_max_age=DB_CONN_MAX_AGE,
     ),
     DATABASE_CONNECTION_REPLICA_NAME: dj_database_url.config(
-        default="postgres://saleor:saleor@localhost:5432/saleor",
+        default="postgresql://ecommercedbuser:uLW0gOVLPkRTPHtq8py1EEzWT0pId1Ll@dpg-cqdl200gph6c73a84dg0-a.singapore-postgres.render.com/ecommercedb_od5x",
         # TODO: We need to add read only user to saleor platform,
         # and we need to update docs.
         # default="postgres://saleor_read_only:saleor@localhost:5432/saleor",

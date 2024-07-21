@@ -240,6 +240,7 @@ JWT_MANAGER_PATH = os.environ.get(
 )
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.common.CommonMiddleware",
     "saleor.core.middleware.jwt_refresh_token_middleware",
@@ -255,6 +256,7 @@ INSTALLED_APPS = [
     # External apps that need to go before django's
     "storages",
     # Django modules
+    "corsheaders",
     "django.contrib.contenttypes",
     "django.contrib.sites",
     "django.contrib.staticfiles",
@@ -962,3 +964,27 @@ ENABLE_LIMITING_WEBHOOKS_FOR_IDENTICAL_PAYLOADS = get_bool_from_env(
 # Transaction items limit for PaymentGatewayInitialize / TransactionInitialize.
 # That setting limits the allowed number of transaction items for single entity.
 TRANSACTION_ITEMS_LIMIT = 100
+
+#orgin CorsMiddleware
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:9000",
+]
+
+# Or to allow all origins (not recommended for production):
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Optional: specify the methods and headers allowed
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
+
+CORS_ALLOW_HEADERS = [
+    "Authorization",
+    "Content-Type",
+    "X-CSRFToken",
+]

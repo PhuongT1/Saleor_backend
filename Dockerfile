@@ -15,7 +15,7 @@ COPY poetry.lock pyproject.toml /app/
 RUN --mount=type=cache,mode=0755,target=/root/.cache/pypoetry poetry install --no-root
 
 ### Final image
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 RUN groupadd -r saleor && useradd -r -g saleor saleor
 
@@ -64,4 +64,4 @@ GraphQL, Django, and ReactJS."                                                  
       org.opencontainers.image.authors="Saleor Commerce (https://saleor.io)"           \
       org.opencontainers.image.licenses="BSD 3"
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "saleor.asgi:application"]
+CMD ["gunicorn","-c" ,"gunicorn.conf.py", "saleor.asgi:application"]

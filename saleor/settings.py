@@ -988,3 +988,4 @@ CORS_ALLOW_HEADERS = [
     "Content-Type",
     "X-CSRFToken",
 ]
+CORS_ALLOW_CREDENTIALS = True

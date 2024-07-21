@@ -12,7 +12,7 @@ WORKDIR /app
 RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip install poetry==1.7.0
 RUN poetry config virtualenvs.create false
 COPY poetry.lock pyproject.toml /app/
-RUN  poetry install --no-root --no-cache
+RUN  poetry install --no-root
 
 ### Final image
 FROM python:3.9-slim

@@ -257,6 +257,7 @@ INSTALLED_APPS = [
     "storages",
     # Django modules
     "corsheaders",
+     'django_celery_results',
     "django.contrib.contenttypes",
     "django.contrib.sites",
     "django.contrib.staticfiles",
@@ -989,3 +990,9 @@ CORS_ALLOW_HEADERS = [
     "X-CSRFToken",
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+# Redis settings
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+CELERY_RESULT_BACKEND = 'django-db'

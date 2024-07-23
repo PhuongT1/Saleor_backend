@@ -32,7 +32,7 @@ jobs:
         file: ./Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         push: true
-        tags: saleor-backend:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/saleor-backend:latest
 
     - name: Verify
       run: echo ${{ steps.docker_build.outputs.digest }}

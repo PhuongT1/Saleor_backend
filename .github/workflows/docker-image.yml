@@ -13,29 +13,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      
+    - uses: actions/checkout@v2
+    
     - name: Login Docker Hub
-    - uses: docker/login-action@v1
-    - with:
+      uses: docker/login-action@v2
+      with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
     - name: Setup Docker Buildx
-    - uses: docker/setup-buildx-action@v1
-    - id: buildx
+      uses: docker/setup-buildx-action@v2
+      id: buildx
 
     - name: Build and Push Docker Image
-    - uses: docker/build-push-action@v2
-    - id: docker_build
-    - with:
+      uses: docker/build-push-action@v2
+      with:
         context: ./
         file: ./Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
-    
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:latest
+
     - name: Verify
-      run: echo ${{ steps.docker_build.outputs.digest }}    
+      run: echo ${{ steps.docker_build.outputs.digest }}

@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: gunicorn --workers 3 --bind 0.0.0.0:8000 saleor.asgi:application
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: celery -A saleor worker --loglevel=info
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"

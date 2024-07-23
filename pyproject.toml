@@ -33,6 +33,7 @@ documentation = "https://docs.saleor.io/"
   django = {version = "^3.2.24", extras = ["bcrypt"]}
   django-cache-url = "^3.1.2"
   django-celery-beat = "^2.2.1"
+  django-cors-headers = "^4.4.0"
   django-countries = "^7.2"
   django-filter = "^23.1"
   django-measurement = "^3.0"
@@ -150,7 +151,7 @@ documentation = "https://docs.saleor.io/"
   [tool.poetry.group.dev.dependencies.pywatchman]
   version = "^2.0.0"
   markers = "sys_platform != 'win32'"
-  
+
 [tool.deptry]
 extend_exclude = ["conftest\\.py", ".*/conftest\\.py", ".*/tests/.*"]
 

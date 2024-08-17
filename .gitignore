@@ -30,4 +30,4 @@ venv.bak/
 
 # Exported results file
 django-queries-results.html
-#Saleor_IAM.json
+Saleor_IAM.json

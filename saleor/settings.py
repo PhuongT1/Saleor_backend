@@ -180,10 +180,12 @@ DEFAULT_FROM_EMAIL: str = os.environ.get(
     "DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "noreply@example.com"
 )
 
-
+STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
+STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
 STATICFILES_DIRS = [
     ("images", os.path.join(PROJECT_ROOT, "saleor", "static", "images"))
 ]
+
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
@@ -495,6 +497,7 @@ GS_FILE_OVERWRITE = get_bool_from_env("GS_FILE_OVERWRITE", True)
 
 # If GOOGLE_APPLICATION_CREDENTIALS is set there is no need to load OAuth token
 # See https://django-storages.readthedocs.io/en/latest/backends/gcloud.html
+
 GOOGLE_APPLICATION_CREDENTIALS = os.path.join(PROJECT_ROOT, 'Saleor_IAM.json')
 
 # Load the credentials from the service account JSON file
@@ -533,9 +536,6 @@ PLACEHOLDER_IMAGES = {
 
 MEDIA_ROOT: str = os.path.join(PROJECT_ROOT, "media")
 MEDIA_URL: str = os.environ.get("MEDIA_URL", "f'https://storage.googleapis.com/{GS_BUCKET_NAME}/media/'")
-
-STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
-STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
 
 
 AUTHENTICATION_BACKENDS = [
@@ -978,7 +978,6 @@ TRANSACTION_ITEMS_LIMIT = 100
 #orgin CorsMiddleware
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9000",
-    "https://wide-cycles-march.loca.lt"
 ]
 
 # Or to allow all origins (not recommended for production):

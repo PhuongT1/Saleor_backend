@@ -535,7 +535,7 @@ MEDIA_ROOT: str = os.path.join(PROJECT_ROOT, "media")
 MEDIA_URL: str = os.environ.get("MEDIA_URL", "f'https://storage.googleapis.com/{GS_BUCKET_NAME}/media/'")
 
 STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
-STATIC_URL: str = os.environ.get("STATIC_URL", "f'https://storage.googleapis.com/{GS_BUCKET_NAME}/static/'")
+STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
 
 
 AUTHENTICATION_BACKENDS = [

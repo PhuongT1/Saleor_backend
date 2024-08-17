@@ -30,6 +30,8 @@ from . import PatchedSubscriberExecutionContext, __version__
 from .core.languages import LANGUAGES as CORE_LANGUAGES
 from .core.schedules import initiated_promotion_webhook_schedule
 from .graphql.executor import patch_executor
+from google.oauth2 import service_account
+
 
 django_stubs_ext.monkeypatch()
 
@@ -178,11 +180,7 @@ DEFAULT_FROM_EMAIL: str = os.environ.get(
     "DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "noreply@example.com"
 )
 
-MEDIA_ROOT: str = os.path.join(PROJECT_ROOT, "media")
-MEDIA_URL: str = os.environ.get("MEDIA_URL", "/media/")
 
-STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
-STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
 STATICFILES_DIRS = [
     ("images", os.path.join(PROJECT_ROOT, "saleor", "static", "images"))
 ]
@@ -481,11 +479,11 @@ AWS_S3_FILE_OVERWRITE = get_bool_from_env("AWS_S3_FILE_OVERWRITE", True)
 
 # Google Cloud Storage configuration
 # See https://django-storages.readthedocs.io/en/latest/backends/gcloud.html
-GS_PROJECT_ID = os.environ.get("GS_PROJECT_ID")
-GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME")
+GS_PROJECT_ID = os.environ.get("GS_PROJECT_ID","ivory-analyst-432805-v5")
+GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME","saleorbucket")
 GS_LOCATION = os.environ.get("GS_LOCATION", "")
 GS_CUSTOM_ENDPOINT = os.environ.get("GS_CUSTOM_ENDPOINT")
-GS_MEDIA_BUCKET_NAME = os.environ.get("GS_MEDIA_BUCKET_NAME")
+GS_MEDIA_BUCKET_NAME = os.environ.get("GS_MEDIA_BUCKET_NAME","saleorbucket")
 GS_AUTO_CREATE_BUCKET = get_bool_from_env("GS_AUTO_CREATE_BUCKET", False)
 GS_QUERYSTRING_AUTH = get_bool_from_env("GS_QUERYSTRING_AUTH", False)
 GS_DEFAULT_ACL = os.environ.get("GS_DEFAULT_ACL", None)
@@ -493,10 +491,16 @@ GS_MEDIA_CUSTOM_ENDPOINT = os.environ.get("GS_MEDIA_CUSTOM_ENDPOINT", None)
 GS_EXPIRATION = timedelta(seconds=parse(os.environ.get("GS_EXPIRATION", "1 day")))
 GS_FILE_OVERWRITE = get_bool_from_env("GS_FILE_OVERWRITE", True)
 
+
+
 # If GOOGLE_APPLICATION_CREDENTIALS is set there is no need to load OAuth token
 # See https://django-storages.readthedocs.io/en/latest/backends/gcloud.html
-if "GOOGLE_APPLICATION_CREDENTIALS" not in os.environ:
-    GS_CREDENTIALS = os.environ.get("GS_CREDENTIALS")
+GOOGLE_APPLICATION_CREDENTIALS = os.path.join(PROJECT_ROOT, 'Saleor_IAM.json')
+
+# Load the credentials from the service account JSON file
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    GOOGLE_APPLICATION_CREDENTIALS
+)
 
 # Azure Storage configuration
 # See https://django-storages.readthedocs.io/en/latest/backends/azure.html
@@ -504,7 +508,6 @@ AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME")
 AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")
 AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER")
 AZURE_SSL = os.environ.get("AZURE_SSL")
-
 if AWS_STORAGE_BUCKET_NAME:
     STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 elif GS_BUCKET_NAME:
@@ -513,7 +516,7 @@ elif GS_BUCKET_NAME:
 if AWS_MEDIA_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = "saleor.core.storages.S3MediaStorage"
 elif GS_MEDIA_BUCKET_NAME:
-    DEFAULT_FILE_STORAGE = "saleor.core.storages.GCSMediaStorage"
+    DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 elif AZURE_CONTAINER:
     DEFAULT_FILE_STORAGE = "saleor.core.storages.AzureMediaStorage"
 
@@ -527,6 +530,12 @@ PLACEHOLDER_IMAGES = {
     2048: "images/placeholder2048.png",
     4096: "images/placeholder4096.png",
 }
+
+MEDIA_ROOT: str = os.path.join(PROJECT_ROOT, "media")
+MEDIA_URL: str = os.environ.get("MEDIA_URL", "f'https://storage.googleapis.com/{GS_BUCKET_NAME}/media/'")
+
+STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
+STATIC_URL: str = os.environ.get("STATIC_URL", "f'https://storage.googleapis.com/{GS_BUCKET_NAME}/static/'")
 
 
 AUTHENTICATION_BACKENDS = [
@@ -969,6 +978,7 @@ TRANSACTION_ITEMS_LIMIT = 100
 #orgin CorsMiddleware
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9000",
+    "https://wide-cycles-march.loca.lt"
 ]
 
 # Or to allow all origins (not recommended for production):
@@ -996,3 +1006,6 @@ CELERY_BROKER_URL = 'redis://redis:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 # CELERY_RESULT_BACKEND = 'django-db'
+
+
+

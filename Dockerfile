@@ -43,6 +43,7 @@ RUN echo 'image/avif avif' >> /etc/mime.types
 RUN mkdir -p /app/static \
   && chown -R saleor:saleor /app/
 
+COPY Saleor_IAM.json /app/
 COPY --from=build-python /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
 COPY --from=build-python /usr/local/bin/ /usr/local/bin/
 COPY . /app

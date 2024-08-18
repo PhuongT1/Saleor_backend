@@ -498,7 +498,7 @@ GS_FILE_OVERWRITE = get_bool_from_env("GS_FILE_OVERWRITE", True)
 # If GOOGLE_APPLICATION_CREDENTIALS is set there is no need to load OAuth token
 # See https://django-storages.readthedocs.io/en/latest/backends/gcloud.html
 
-GOOGLE_APPLICATION_CREDENTIALS = os.path.join(PROJECT_ROOT, 'Saleor_IAM.json')
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS",os.path.join(PROJECT_ROOT, 'Saleor_IAM.json'))
 
 # Load the credentials from the service account JSON file
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(

@@ -13,7 +13,7 @@ RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip install poetry==1.7
 RUN poetry config virtualenvs.create false
 COPY poetry.lock pyproject.toml /app/
 RUN --mount=type=cache,mode=0755,target=/root/.cache/pypoetry poetry install --no-root
-
+RUN python -c "import shutil; shutil.rmtree('saleor/__pycache__', ignore_errors=True)"
 ### Final image
 FROM python:3.9-slim
 

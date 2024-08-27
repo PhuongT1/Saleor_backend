@@ -34,7 +34,8 @@ from google.oauth2 import service_account
 
 
 django_stubs_ext.monkeypatch()
-
+from dotenv import load_dotenv
+load_dotenv()
 
 def get_list(text):
     return [item.strip() for item in text.split(",")]
@@ -163,7 +164,7 @@ USER_EMAIL_PORT: str = str(user_email_config.get("EMAIL_PORT") or "")
 USER_EMAIL_USE_TLS: bool = user_email_config.get("EMAIL_USE_TLS", False)
 USER_EMAIL_USE_SSL: bool = user_email_config.get("EMAIL_USE_SSL", False)
 
-ENABLE_SSL: bool = get_bool_from_env("ENABLE_SSL", True)
+ENABLE_SSL: bool = get_bool_from_env("ENABLE_SSL", False)
 
 # URL on which Saleor is hosted (e.g., https://api.example.com/). This has precedence
 # over ENABLE_SSL and Shop.domain when generating URLs pointing to itself.
@@ -605,7 +606,8 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_BROKER_URL = (
     os.environ.get("CELERY_BROKER_URL", os.environ.get("CLOUDAMQP_URL")) or ""
 )
-CELERY_TASK_ALWAYS_EAGER = not CELERY_BROKER_URL
+# CELERY_TASK_ALWAYS_EAGER = not CELERY_BROKER_URL
+CELERY_TASK_ALWAYS_EAGER = True
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"

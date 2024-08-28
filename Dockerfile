@@ -47,6 +47,7 @@ COPY Saleor_IAM.json /app/Saleor_IAM.json
 COPY --from=build-python /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
 COPY --from=build-python /usr/local/bin/ /usr/local/bin/
 COPY . /app
+COPY .env /app/.env
 WORKDIR /app
 
 ARG STATIC_URL

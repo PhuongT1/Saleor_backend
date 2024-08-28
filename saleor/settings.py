@@ -31,10 +31,9 @@ from .core.languages import LANGUAGES as CORE_LANGUAGES
 from .core.schedules import initiated_promotion_webhook_schedule
 from .graphql.executor import patch_executor
 from google.oauth2 import service_account
-
+from dotenv import load_dotenv
 
 django_stubs_ext.monkeypatch()
-from dotenv import load_dotenv
 load_dotenv()
 
 def get_list(text):
@@ -606,8 +605,8 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_BROKER_URL = (
     os.environ.get("CELERY_BROKER_URL", os.environ.get("CLOUDAMQP_URL")) or ""
 )
-# CELERY_TASK_ALWAYS_EAGER = not CELERY_BROKER_URL
-CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_ALWAYS_EAGER = not CELERY_BROKER_URL
+# CELERY_TASK_ALWAYS_EAGER = True
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"

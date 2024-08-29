@@ -96,7 +96,7 @@ INTERNAL_IPS = get_list(os.environ.get("INTERNAL_IPS", "127.0.0.1"))
 # will be closed after each request.
 DB_CONN_MAX_AGE = int(os.environ.get("DB_CONN_MAX_AGE", 1500))
 
-DATABASE_CONNECTION_DEFAULT_NAME = "default"
+DATABASE_CONNECTION_DEFAULT_NAME = "verceldb"
 # TODO: For local envs will be activated in separate PR.
 # We need to update docs an saleor platform.
 # This variable should be set to `replica`

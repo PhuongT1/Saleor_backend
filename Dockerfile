@@ -43,7 +43,7 @@ RUN echo 'image/avif avif' >> /etc/mime.types
 RUN mkdir -p /app/static \
   && chown -R saleor:saleor /app/
 
-COPY Saleor_IAM.json /app/Saleor_IAM.json
+# COPY Saleor_IAM.json /app/Saleor_IAM.json
 COPY --from=build-python /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
 COPY --from=build-python /usr/local/bin/ /usr/local/bin/
 COPY . /app
@@ -55,7 +55,7 @@ RUN SECRET_KEY=dummy STATIC_URL=${STATIC_URL} python3 manage.py collectstatic --
 
 EXPOSE 8000
 ENV PYTHONUNBUFFERED 1
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/Saleor_IAM.json
+# ENV GOOGLE_APPLICATION_CREDENTIALS=/app/Saleor_IAM.json
 
 LABEL org.opencontainers.image.title="saleor/saleor"                                  \
       org.opencontainers.image.description="\

@@ -167,8 +167,8 @@ ENABLE_SSL: bool = get_bool_from_env("ENABLE_SSL", True)
 
 # URL on which Saleor is hosted (e.g., https://api.example.com/). This has precedence
 # over ENABLE_SSL and Shop.domain when generating URLs pointing to itself.
-# PUBLIC_URL: Optional[str] = get_url_from_env("PUBLIC_URL", schemes=["http", "https"])
-PUBLIC_URL: Optional[str] = 'https://saleor.click/graphql/'
+PUBLIC_URL: Optional[str] = get_url_from_env("PUBLIC_URL", schemes=["http", "https"])
+
 if PUBLIC_URL:
     if os.environ.get("ENABLE_SSL") is not None:
         warnings.warn("ENABLE_SSL is ignored on URL generation if PUBLIC_URL is set.")

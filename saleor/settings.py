@@ -163,7 +163,7 @@ USER_EMAIL_PORT: str = str(user_email_config.get("EMAIL_PORT") or "")
 USER_EMAIL_USE_TLS: bool = user_email_config.get("EMAIL_USE_TLS", False)
 USER_EMAIL_USE_SSL: bool = user_email_config.get("EMAIL_USE_SSL", False)
 
-ENABLE_SSL: bool = get_bool_from_env("ENABLE_SSL", False)
+ENABLE_SSL: bool = get_bool_from_env("ENABLE_SSL", True)
 
 # URL on which Saleor is hosted (e.g., https://api.example.com/). This has precedence
 # over ENABLE_SSL and Shop.domain when generating URLs pointing to itself.
@@ -276,7 +276,7 @@ MIDDLEWARE = [
 ]
 
 ENABLE_RESTRICT_WRITER_MIDDLEWARE = get_bool_from_env(
-    "ENABLE_RESTRICT_WRITER_MIDDLEWARE", False
+    "ENABLE_RESTRICT_WRITER_MIDDLEWARE", True
 )
 if ENABLE_RESTRICT_WRITER_MIDDLEWARE:
     MIDDLEWARE = ["saleor.core.db.connection.log_writer_usage_middleware"] + MIDDLEWARE
@@ -335,7 +335,7 @@ if ENABLE_DJANGO_EXTENSIONS:
         "django_extensions",
     ]
 
-ENABLE_DEBUG_TOOLBAR = get_bool_from_env("ENABLE_DEBUG_TOOLBAR", False)
+ENABLE_DEBUG_TOOLBAR = get_bool_from_env("ENABLE_DEBUG_TOOLBAR", True)
 if ENABLE_DEBUG_TOOLBAR:
     # Ensure the graphiql debug toolbar is actually installed before adding it
     try:

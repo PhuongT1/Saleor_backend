@@ -329,7 +329,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
 ]
 
-ENABLE_DJANGO_EXTENSIONS = get_bool_from_env("ENABLE_DJANGO_EXTENSIONS", False)
+ENABLE_DJANGO_EXTENSIONS = get_bool_from_env("ENABLE_DJANGO_EXTENSIONS", True)
 if ENABLE_DJANGO_EXTENSIONS:
     INSTALLED_APPS += [
         "django_extensions",
@@ -606,8 +606,8 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_BROKER_URL = (
     os.environ.get("CELERY_BROKER_URL", os.environ.get("CLOUDAMQP_URL")) or ""
 )
-# CELERY_TASK_ALWAYS_EAGER = not CELERY_BROKER_URL
-CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_ALWAYS_EAGER = not CELERY_BROKER_URL
+# CELERY_TASK_ALWAYS_EAGER = True
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
@@ -1019,32 +1019,32 @@ ENABLE_LIMITING_WEBHOOKS_FOR_IDENTICAL_PAYLOADS = get_bool_from_env(
 TRANSACTION_ITEMS_LIMIT = 100
 
 #orgin CorsMiddleware
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:9000",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:9000",
+# ]
 
 # Or to allow all origins (not recommended for production):
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
 # Optional: specify the methods and headers allowed
-CORS_ALLOW_METHODS = [
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS",
-]
+# CORS_ALLOW_METHODS = [
+#     "GET",
+#     "POST",
+#     "PUT",
+#     "PATCH",
+#     "DELETE",
+#     "OPTIONS",
+# ]
 
-CORS_ALLOW_HEADERS = [
-    "Authorization",
-    "Content-Type",
-    "X-CSRFToken",
-]
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_HEADERS = [
+#     "Authorization",
+#     "Content-Type",
+#     "X-CSRFToken",
+# ]
+# CORS_ALLOW_CREDENTIALS = True
 
 # Redis settings
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+# CELERY_BROKER_URL = 'redis://redis:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 # CELERY_RESULT_BACKEND = 'django-db'

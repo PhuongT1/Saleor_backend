@@ -4,4 +4,4 @@
 media
 node_modules
 static
-!.env
+!.env.dev

@@ -59,7 +59,7 @@ def get_url_from_env(name, *, schemes=None) -> Optional[str]:
     return None
 
 
-DEBUG = get_bool_from_env("DEBUG", False)
+DEBUG = get_bool_from_env("DEBUG", True)
 
 SITE_ID = 1
 
@@ -76,16 +76,16 @@ MANAGERS = ADMINS
 
 APPEND_SLASH = False
 
-_DEFAULT_CLIENT_HOSTS = "*"
-ALLOWED_CLIENT_HOSTS = _DEFAULT_CLIENT_HOSTS
-# ALLOWED_CLIENT_HOSTS = os.environ.get("ALLOWED_CLIENT_HOSTS", _DEFAULT_CLIENT_HOSTS)
-# if not ALLOWED_CLIENT_HOSTS:
-#     if DEBUG:
-#         ALLOWED_CLIENT_HOSTS = _DEFAULT_CLIENT_HOSTS
-#     else:
-#         raise ImproperlyConfigured(
-#             "ALLOWED_CLIENT_HOSTS environment variable must be set when DEBUG=False."
-#         )
+_DEFAULT_CLIENT_HOSTS = "localhost,127.0.0.1"
+
+ALLOWED_CLIENT_HOSTS = os.environ.get("ALLOWED_CLIENT_HOSTS")
+if not ALLOWED_CLIENT_HOSTS:
+    if DEBUG:
+        ALLOWED_CLIENT_HOSTS = _DEFAULT_CLIENT_HOSTS
+    else:
+        raise ImproperlyConfigured(
+            "ALLOWED_CLIENT_HOSTS environment variable must be set when DEBUG=False."
+        )
 
 ALLOWED_CLIENT_HOSTS = get_list(ALLOWED_CLIENT_HOSTS)
 
@@ -164,7 +164,6 @@ USER_EMAIL_USE_TLS: bool = user_email_config.get("EMAIL_USE_TLS", False)
 USER_EMAIL_USE_SSL: bool = user_email_config.get("EMAIL_USE_SSL", False)
 
 ENABLE_SSL: bool = get_bool_from_env("ENABLE_SSL", False)
-
 # URL on which Saleor is hosted (e.g., https://api.example.com/). This has precedence
 # over ENABLE_SSL and Shop.domain when generating URLs pointing to itself.
 PUBLIC_URL: Optional[str] = get_url_from_env("PUBLIC_URL", schemes=["http", "https"])
@@ -219,9 +218,7 @@ TEMPLATES = [
 ]
 
 # Make this unique, and don't share it with anybody.
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = "NOTREALLY"
-
+SECRET_KEY = os.environ.get("SECRET_KEY")
 # Additional password algorithms that can be used by Saleor.
 # The first algorithm defined by Django is the preferred one; users not using the
 # first algorithm will automatically be upgraded to it upon login
@@ -235,34 +232,7 @@ if not SECRET_KEY and DEBUG:
     warnings.warn("SECRET_KEY not configured, using a random temporary key.")
     SECRET_KEY = get_random_secret_key()
 
-# RSA_PRIVATE_KEY = os.environ.get("RSA_PRIVATE_KEY", None)
-RSA_PRIVATE_KEY = """-----BEGIN RSA PRIVATE KEY-----
-MIIEpQIBAAKCAQEAmjTsKENcArpmBM0E74xHAYj3bYJuPMsnBjvPC1sGJKYTvmzn
-5r74ogouzYSqVJGMZcVCMi6IOyJZXsDWz9YB5bJvOu8rKgzkh2wBgDvYAwnOlaBo
-MKAQn2dxdeP4D4cTGqFPTh17bTwP9aNyXUs8+RE3U6U28AUywBTHLAiq/NlaUETt
-HFddB6FTxrMCA/8x9tarSW4+uYP15HgvKRdf5VtG7/RpMRpI2xvYwjVRqhJkcqhW
-Z/zLWURu0IxH0PuzqeKRP1q95vQvFLk8EIQfQbDHLRctpdkLcOKsbftYgVaLJv9z
-EivAZMZyJNx+bHhBhVOA9aLmnZizgZuCPfsnhQIDAQABAoIBAQCHYqNbjhgABSqA
-WIdW0O+eN2QT7wldsnZmkKfsLlQsZOq8qtzGxy9/BDWnFix85vQ+fXrql9PfJv8T
-o3Z1LkyoH4psUYKx/nO9OWPv85powHlxAE25My6k5KrGeAlXiJ2LKch4qoWsl6jj
-XkaQBfhYK3dJpqme/NFbtmJPFKUaK1SdrtKDceuJGYrKw4xtzSN2ioiZEcb4jWNg
-p0pt4/nE/oQwXdKyvL07I4OHEeugu4JXd8OIrnvDOFRrfliHXoe+89Up8n42Q8O1
-+qrnorCUIheFRdzcHqTh4O0QUXz0nxSQ0O4Nq08LCdNLDfe7y14/NGNko5sQbNGE
-5/AOJXuBAoGBAMrAS48NK1xU4wslM/B3DmeC+wvheCNZgUC0YhvaDe2Drd/KkqSK
-+9NGQwkCOveHxROV5B4jgDijaimleLV8e9RAroJqYeCNmFP2Bja7EVzzOJjdItH0
-PWVrcLfvGlUz//KpHsA1tDpKguSdTvaMrbIsUQ9pW0zxo9tm14AAyssVAoGBAMK0
-zq47tzcCijpo5EZACr315m3jTSSFbVITlyJMIlrpd3kSj8S8QshxyuQv5XtpToVy
-rbF9Rsw0ZbX1BhTYXHXy2MJXeDyRdHFIXn/PmW5Ilad3wE957HEwUZ0kig0pPvTA
-YNLm48wWZeiKAxpKZh0mr5ZWq760/SfTv9lQiUaxAoGANxrUbmjR5CJeIuVVnIF/
-NLrwqGX7VQA6lO9xysgVCPzFARH5kScFEoMCLSyiAiywb4ZJnbdgXgRsEi2bBRh0
-P1flFiT7vSA+ynMPdUiai3y/YSyZDh8noKz20cb2jTm40qcMaIkwFrexo5jtoSzS
-+J362gl0exEhy7vDzlJoy5ECgYEAgqlrealBTn053fC+IBaiHtCCDoRXJIcV0dqr
-tax58aBzOKCoMlJUTsdubKtnyOXmd895mH6FoEwZZX5E0oBPrCeIJwMkASFrjwoN
-wJ/ESyoSpAvM1ojvjxXp7xayPhrL0Nu5Hk8r163APclAQ8hhtnZbpvwKzTQQH0YO
-nPta5EECgYEAtGnUpVb1lfBT6HByscXJHViGxAblACFySPpHEYzf3ioaGnvUgf14
-FdkAmFzQhgLtnEtnb+eBI7DNOJEuPLD52Jwnq2pGnJ/LxlqjjWJ5FsQQVSoDHGfM
-8yodVX6OCKwHYrgleLjVWs5ZmaGfGpqcy1YgquiYGVF4x8qBe5bpwHw=
------END RSA PRIVATE KEY-----"""
+RSA_PRIVATE_KEY = os.environ.get("RSA_PRIVATE_KEY", None)
 RSA_PRIVATE_PASSWORD = os.environ.get("RSA_PRIVATE_PASSWORD", None)
 JWT_MANAGER_PATH = os.environ.get(
     "JWT_MANAGER_PATH", "saleor.core.jwt_manager.JWTManager"
@@ -276,7 +246,7 @@ MIDDLEWARE = [
 ]
 
 ENABLE_RESTRICT_WRITER_MIDDLEWARE = get_bool_from_env(
-    "ENABLE_RESTRICT_WRITER_MIDDLEWARE", True
+    "ENABLE_RESTRICT_WRITER_MIDDLEWARE", False
 )
 if ENABLE_RESTRICT_WRITER_MIDDLEWARE:
     MIDDLEWARE = ["saleor.core.db.connection.log_writer_usage_middleware"] + MIDDLEWARE
@@ -329,7 +299,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
 ]
 
-ENABLE_DJANGO_EXTENSIONS = get_bool_from_env("ENABLE_DJANGO_EXTENSIONS", True)
+ENABLE_DJANGO_EXTENSIONS = get_bool_from_env("ENABLE_DJANGO_EXTENSIONS", False)
 if ENABLE_DJANGO_EXTENSIONS:
     INSTALLED_APPS += [
         "django_extensions",
@@ -485,7 +455,7 @@ TEST_RUNNER = "saleor.tests.runner.PytestTestRunner"
 
 PLAYGROUND_ENABLED = get_bool_from_env("PLAYGROUND_ENABLED", True)
 
-ALLOWED_HOSTS = get_list(os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1,167.71.217.160,saleor.click,*"))
+ALLOWED_HOSTS = get_list(os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1"))
 ALLOWED_GRAPHQL_ORIGINS: list[str] = get_list(
     os.environ.get("ALLOWED_GRAPHQL_ORIGINS", "*")
 )
@@ -849,12 +819,12 @@ PLUGINS = BUILTIN_PLUGINS + EXTERNAL_PLUGINS
 # When `True`, HTTP requests made from arbitrary URLs will be rejected (e.g., webhooks).
 # if they try to access private IP address ranges, and loopback ranges (unless
 # `HTTP_IP_FILTER_ALLOW_LOOPBACK_IPS=False`).
-HTTP_IP_FILTER_ENABLED: bool = get_bool_from_env("HTTP_IP_FILTER_ENABLED", False)
+HTTP_IP_FILTER_ENABLED: bool = get_bool_from_env("HTTP_IP_FILTER_ENABLED", True)
 
 # When `False` it rejects loopback IPs during external calls.
 # Refer to `HTTP_IP_FILTER_ENABLED` for more details.
 HTTP_IP_FILTER_ALLOW_LOOPBACK_IPS: bool = get_bool_from_env(
-    "HTTP_IP_FILTER_ALLOW_LOOPBACK_IPS", True
+    "HTTP_IP_FILTER_ALLOW_LOOPBACK_IPS", False
 )
 
 # Since we split checkout complete logic into two separate transactions, in order to

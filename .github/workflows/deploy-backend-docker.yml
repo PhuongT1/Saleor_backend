@@ -9,8 +9,11 @@ on:
 jobs:
 
   build:
+    runs-on: ${{ matrix.os }}
 
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]  # Thêm cả hai môi trường
 
     steps:
     - uses: actions/checkout@v2

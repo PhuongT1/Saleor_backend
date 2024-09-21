@@ -17,6 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: Setup Docker on macOS
+        if: matrix.os == 'macos-latest'  # Chỉ chạy trên macOS
+        run: |
+          brew install --cask docker
+          open /Applications/Docker.app  # Mở Docker
+          sleep 30  # Đợi cho Docker khởi động
+
       - name: Login Docker Hub
         uses: docker/login-action@v2
         with:
@@ -35,7 +42,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/saleor-backend:latest
-          platforms: linux/amd64,linux/arm64  # Xây dựng cho cả hai kiến trúc
+          platforms: linux/amd64,linux/arm64
 
       - name: Verify
         run: echo ${{ steps.buildx.outputs.digest }}

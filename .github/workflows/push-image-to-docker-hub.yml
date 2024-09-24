@@ -1,4 +1,4 @@
-name: Push Image to Docker Hub(Dev env)
+name: Push Image to Docker Hub (Dev env)
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/saleor-backend:latest
-          platforms: linux/amd64,linux/arm64  # Thêm nền tảng cần thiết
+          platforms: linux/amd64,linux/arm64
 
       - name: Verify
         run: echo ${{ steps.buildx.outputs.digest }}

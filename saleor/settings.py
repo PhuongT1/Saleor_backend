@@ -181,6 +181,9 @@ DEFAULT_FROM_EMAIL: str = os.environ.get(
     "DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "noreply@example.com"
 )
 
+MEDIA_ROOT: str = os.path.join(PROJECT_ROOT, "media")
+MEDIA_URL: str = os.environ.get("MEDIA_URL", "/media/")
+
 STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
 STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
 STATICFILES_DIRS = [
@@ -550,10 +553,6 @@ PLACEHOLDER_IMAGES = {
     2048: "images/placeholder2048.png",
     4096: "images/placeholder4096.png",
 }
-
-MEDIA_ROOT: str = os.path.join(PROJECT_ROOT, "media")
-MEDIA_URL: str = os.environ.get("MEDIA_URL", f'https://storage.googleapis.com/{GS_BUCKET_NAME}/media/')
-
 
 AUTHENTICATION_BACKENDS = [
     "saleor.core.auth_backend.JSONWebTokenBackend",

@@ -186,6 +186,7 @@ MEDIA_URL: str = os.environ.get("MEDIA_URL", "/media/")
 
 STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
 STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
+
 STATICFILES_DIRS = [
     ("images", os.path.join(PROJECT_ROOT, "saleor", "static", "images"))
 ]
@@ -542,6 +543,12 @@ elif GS_MEDIA_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 elif AZURE_CONTAINER:
     DEFAULT_FILE_STORAGE = "saleor.core.storages.AzureMediaStorage"
+
+# MEDIA_ROOT: str = os.path.join(PROJECT_ROOT, "media")
+# MEDIA_URL: str = os.environ.get("MEDIA_URL", "/media/")
+
+# STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
+# STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
 
 PLACEHOLDER_IMAGES = {
     32: "images/placeholder32.png",

@@ -30,7 +30,9 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/saleor-backend:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/saleor-backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/saleor-backend:${{ github.ref_name }}
           # platforms: linux/amd64,linux/arm64
 
       - name: Verify

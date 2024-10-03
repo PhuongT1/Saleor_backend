@@ -198,6 +198,7 @@ def get_buffer(
     max_size = settings.OBSERVABILITY_BUFFER_SIZE_LIMIT
     batch_size = settings.OBSERVABILITY_BUFFER_BATCH_SIZE
     timeout = int(settings.OBSERVABILITY_BUFFER_TIMEOUT.total_seconds())
+    broker_connection_retry_on_startup = True
     return RedisBuffer(
         broker_url,
         key,
@@ -205,4 +206,5 @@ def get_buffer(
         batch_size,
         connection_timeout=connection_timeout,
         timeout=timeout,
+        broker_connection_retry_on_startup=broker_connection_retry_on_startup
     )

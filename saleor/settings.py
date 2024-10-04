@@ -31,10 +31,8 @@ from .core.languages import LANGUAGES as CORE_LANGUAGES
 from .core.schedules import initiated_promotion_webhook_schedule
 from .graphql.executor import patch_executor
 from google.oauth2 import service_account
-from dotenv import load_dotenv
 
 django_stubs_ext.monkeypatch()
-load_dotenv('.env.dev')
 
 def get_list(text):
     return [item.strip() for item in text.split(",")]
@@ -78,7 +76,8 @@ APPEND_SLASH = False
 
 _DEFAULT_CLIENT_HOSTS = "localhost,127.0.0.1"
 
-ALLOWED_CLIENT_HOSTS = os.environ.get("ALLOWED_CLIENT_HOSTS")
+# ALLOWED_CLIENT_HOSTS = os.environ.get("ALLOWED_CLIENT_HOSTS")
+ALLOWED_CLIENT_HOSTS ='*'
 if not ALLOWED_CLIENT_HOSTS:
     if DEBUG:
         ALLOWED_CLIENT_HOSTS = _DEFAULT_CLIENT_HOSTS
@@ -461,7 +460,8 @@ TEST_RUNNER = "saleor.tests.runner.PytestTestRunner"
 
 PLAYGROUND_ENABLED = get_bool_from_env("PLAYGROUND_ENABLED", True)
 
-ALLOWED_HOSTS = get_list(os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1"))
+# ALLOWED_HOSTS = get_list(os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1"))
+ALLOWED_HOSTS = get_list(os.environ.get("ALLOWED_HOSTS", "*"))
 ALLOWED_GRAPHQL_ORIGINS: list[str] = get_list(
     os.environ.get("ALLOWED_GRAPHQL_ORIGINS", "*")
 )

@@ -51,8 +51,8 @@ def get_bool_from_env(name, default_value):
 def get_url_from_env(name, *, schemes=None) -> Optional[str]:
     if name in os.environ:
         value = os.environ[name]
-        message = f"{value} is an invalid value for {name}"
-        URLValidator(schemes=schemes, message=message)(value)
+        # message = f"{value} is an invalid value for {name}"
+        # URLValidator(schemes=schemes, message=message)(value)
         return value
     return None
 
